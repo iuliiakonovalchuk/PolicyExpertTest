@@ -1,6 +1,5 @@
 package com.policyexpert.home.pages.enquirydetails;
 
-import com.policyexpert.home.base.BasePage;
 import com.policyexpert.home.pages.enquirydetails.fragments.*;
 import com.policyexpert.home.tests.TestData;
 import com.policyexpert.home.utils.PageStatesBucket;
@@ -13,7 +12,7 @@ import java.util.function.UnaryOperator;
 
 import static org.testng.Assert.assertTrue;
 
-public class EnquiryDetailsPage extends BasePage {
+public class EnquiryDetailsPage {
 
     private AboutYou aboutYou;
     private StatementsAboutYou statementsAboutYou;
@@ -24,17 +23,20 @@ public class EnquiryDetailsPage extends BasePage {
     private AboutYourInsuranceHistory aboutYourInsuranceHistory;
     private AboutTheCoverYouWant aboutTheCoverYouWant;
 
-    @FindBy(xpath="//div[text() = 'About you']/following-sibling::div")
+    @FindBy(xpath = "//div[text() = 'About you']/following-sibling::div")
     private WebElement aboutYouWidget;
 
     @FindBy(xpath = "//div[text() = 'Statements about you']/following-sibling::div")
     private WebElement statementsAboutYouWidget;
 
+    @FindBy(xpath = "//div[text() = 'About your property']/following-sibling::div")
+    private WebElement aboutYourPropertyWidget;
+
     public EnquiryDetailsPage(RemoteWebDriver driver) {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         this.aboutYou = new AboutYou(aboutYouWidget);
         this.statementsAboutYou = new StatementsAboutYou(statementsAboutYouWidget);
-       // this.aboutYourProperty = new AboutYourProperty(driver);
+        this.aboutYourProperty = new AboutYourProperty(aboutYourPropertyWidget);
         //this.statementsAboutYourProperty = new StatementsAboutYourProperty(driver);
         //this.aboutSafetyAndSecurity = new AboutSafetyAndSecurity(driver);
         //this.aboutTheJointPolicyholders = new AboutTheJointPolicyholders(driver);
@@ -45,33 +47,51 @@ public class EnquiryDetailsPage extends BasePage {
     public final UnaryOperator<TestData> fillAboutYou = (d) -> {
         if (!d.filledAboutYou()) {
             assertTrue(aboutYou.isAt());
-            aboutYou.setTitle(d.getTitle())
-                    .setFieldByCSS(AboutYou.FIRST_NAME_CSS,d.getFirstName())
-                    .setFieldByCSS(AboutYou.LAST_NAME_CSS,d.getLastName())
-                    .setBirthday(d.getDateOfBirth())
-                    .setMaritalStatus(d.getMaritalStatus())
-                    .setFieldByCSS(AboutYou.OCCUPATION_CSS,d.getOccupation()) //TODO
-                    .setDoesAnybodySmoke(d.getAnybodyLivingSmoke())
-                    .setFieldByCSS(AboutYou.PHONE_NUMBER_CSS,d.getPhoneNumber())
-                    .setFieldByCSS(AboutYou.EMAIL_CSS,d.getEmail());
+            aboutYou.selectItemInDropdown(AboutYou.TITLE_DROPDOWN_CSS, d.getAboutYou().getTitle())
+                    .setFieldByCSS(AboutYou.FIRST_NAME_CSS, d.getAboutYou().getFirstName())
+                    .setFieldByCSS(AboutYou.LAST_NAME_CSS, d.getAboutYou().getLastName())
+                    .setBirthday(d.getAboutYou().getDateOfBirth())
+                    .selectItemInDropdown(AboutYou.MARITAL_STATUS_CSS, d.getAboutYou().getMaritalStatus())
+                    .setFieldByCSS(AboutYou.OCCUPATION_CSS, d.getAboutYou().getOccupation())
+                    .setToggleInAboutYou(d.getAboutYou().isAnybodyLivingSmoke())
+                    .setFieldByCSS(AboutYou.PHONE_NUMBER_CSS, d.getAboutYou().getPhoneNumber())
+                    .setFieldByCSS(AboutYou.EMAIL_CSS, d.getAboutYou().getEmail());
         }
         PageStatesBucket.isAboutYouFilled = true;
         return d;
     };
 
     public final UnaryOperator<TestData> fillStatementsAboutYou = (d) -> {
-        if(!d.filledStatementsAboutYou()){
+        if (!d.filledStatementsAboutYou()) {
             assertTrue(statementsAboutYou.isAt());
-            this.statementsAboutYou.setStatementAboutYou(d.getStatementAboutYou());
+            this.statementsAboutYou.setSoleStatementToggle(d.getStatementsAboutYou().isDoesAgree());
         }
-        if(!d.getStatementAboutYou()) {
+        if (!d.getStatementsAboutYou().isDoesAgree()) {
             this.statementsAboutYou
-                    .setStatementToggle(d.getStatAboutYouNoBusiness(), StatementsAboutYou.BUSINESS_PURPOSE_TEXT)
-                    .setStatementToggle(d.getStatAboutYouNoBankrupt(), StatementsAboutYou.NO_BANKRUPT_TEXT)
-                    .setStatementToggle(d.getStatAboutYouNoJudgement(), StatementsAboutYou.NO_JUDGEMENT_TEXT)
-                    .setStatementToggle(d.getStatAboutYouNoDeclinedIns(), StatementsAboutYou.DECLINED_HOME_INSURANCE_TEXT)
-                    .setStatementToggle(d.getStatAboutYouNoCancelledIns(), StatementsAboutYou.CANCELLED_HOME_INSURANCE_TEXT)
-                    .setStatementToggle(d.getStatAboutYouNoOffence(), StatementsAboutYou.ANY_OFFENCE_TEXT);
+                    .setStatementToggle(d.getExpandedAgreementSelection().isPropertyNotForBusiness(), StatementsAboutYou.BUSINESS_PURPOSE_TEXT)
+                    .setStatementToggle(d.getExpandedAgreementSelection().isNoBankrupt(), StatementsAboutYou.NO_BANKRUPT_TEXT)
+                    .setStatementToggle(d.getExpandedAgreementSelection().isNoCourtJudgement(), StatementsAboutYou.NO_JUDGEMENT_TEXT)
+                    .setStatementToggle(d.getExpandedAgreementSelection().isNoDeclinedHomeInsurance(), StatementsAboutYou.DECLINED_HOME_INSURANCE_TEXT)
+                    .setStatementToggle(d.getExpandedAgreementSelection().isNoCancelledHomeInsurance(), StatementsAboutYou.CANCELLED_HOME_INSURANCE_TEXT)
+                    .setStatementToggle(d.getExpandedAgreementSelection().isNoConvictedOffence(), StatementsAboutYou.ANY_OFFENCE_TEXT);
+        }
+        return d;
+    };
+
+    public final UnaryOperator<TestData> fillAboutYourProperty = (d) -> {
+        if (!d.filledAboutYourProperty()) {
+            assertTrue(aboutYourProperty.isAt());
+            this.aboutYourProperty
+                    .setFieldByCSS(AboutYourProperty.PROPERTY_ADDRESS_CSS, d.getAboutYourProperty().getAddressOfProperty())
+                    .setToggleByLabelText(d.getAboutYourProperty().isCorrespondenceAddress(), AboutYourProperty.CORRESPONDENCE_ADDRESS_TEXT)
+                    .selectItemInDropdown(AboutYourProperty.PROPERTY_TYPE_SELECT_CSS, d.getAboutYourProperty().getTypeOfProperty())
+                    .setFieldByCSS(AboutYourProperty.PROPERTY_BUILT_YEAR_CSS, String.valueOf(d.getAboutYourProperty().getYearOfBuilding()))
+                    .selectItemInDropdown(AboutYourProperty.BEDROOMS_COUNT_SELECT_CSS,String.valueOf(d.getAboutYourProperty().getCountOfBedrooms()))
+                    .selectItemInDropdown(AboutYourProperty.OWN_PROPERTY_SELECT_CSS, d.getAboutYourProperty().getWhoOwner())
+                    .selectItemInDropdown(AboutYourProperty.WHO_PROPERTY_OCCUPIED, d.getAboutYourProperty().getWhomOccupied())
+                    .selectItemInDropdown(AboutYourProperty.WHEN_PROPERTY_OCCUPIED, d.getAboutYourProperty().getWhenOccupied())
+                    .setToggleByLabelText(d.getAboutYourProperty().isAreTreesTaller5meters(), AboutYourProperty.TREES_AROUND_TEXT)
+                    .setToggleByLabelText(d.getAboutYourProperty().isHaveFlatRoof(), AboutYourProperty.FLAT_ROOT_TEXT);
         }
         return d;
     };

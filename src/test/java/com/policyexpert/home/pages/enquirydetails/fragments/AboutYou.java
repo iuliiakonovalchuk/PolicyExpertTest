@@ -14,8 +14,8 @@ public class AboutYou extends BaseWidget {
     public static final String BIRTHDAY_SELECTS_CSS = ".question-row-what-is-your-date-of select";
     public static final String MARITAL_STATUS_CSS = ".question-row-what-is-your-marital select";
     public static final String OCCUPATION_CSS = ".question-row-what-is-your-occupat input";
-    public static final String ANYONE_SMOKE_YES_BTN_XPATH = "//button[text()='Yes']";
-    public static final String ANYONE_SMOKE_NO_BTN_XPATH = "//button[text()='No']";
+    public static final String YES_BTN_XPATH = "//button[text()='Yes']";
+    public static final String NO_BTN_XPATH = "//button[text()='No']";
     public static final String PHONE_NUMBER_CSS = ".question-row-main-telephone-numbe input";
     public static final String EMAIL_CSS = ".question-row-what-is-your-e-mail input";
 
@@ -27,13 +27,13 @@ public class AboutYou extends BaseWidget {
         return isElementVisible(widget);
     }
 
-    public AboutYou setTitle(String title) {
-        selectItemInDropdownByValue(TITLE_DROPDOWN_CSS, title);
+    public AboutYou selectItemInDropdown(String dropdownCss, String value) {
+        super.setFieldByCSS(dropdownCss,value);
         return this;
     }
 
     public AboutYou setFieldByCSS(String field, String value){
-        sendKeys(getElementByCss(field), value);
+        super.setFieldByCSS(field,value);
         return this;
     }
 
@@ -46,17 +46,9 @@ public class AboutYou extends BaseWidget {
         return this;
     }
 
-    public AboutYou setMaritalStatus(String maritalStatus) {
-        selectItemInDropdownByValue(MARITAL_STATUS_CSS, maritalStatus);
+    public AboutYou setToggleInAboutYou(boolean isYes) {
+        super.setToggle(isYes, YES_BTN_XPATH, NO_BTN_XPATH);
         return this;
     }
 
-    public AboutYou setDoesAnybodySmoke(boolean doesSmoke) {
-        if (doesSmoke) {
-            click(getElementBy(By.xpath(ANYONE_SMOKE_YES_BTN_XPATH)));
-        } else {
-            click(getElementBy(By.xpath(ANYONE_SMOKE_NO_BTN_XPATH)));
-        }
-        return this;
-    }
 }

@@ -23,30 +23,14 @@ public class StatementsAboutYou extends BaseWidget {
         super(widget);
     }
 
-    public boolean isAt() {
-        return isElementVisible(widget);
-    }
-
-    public StatementsAboutYou setStatementAboutYou(boolean doesAgree) {
-        if(doesAgree){
-            click(widget.findElement(By.xpath(STATEMENT_ABOUT_YOU_AGREE_BTN_XPATH)));
-        }else{
-            click(widget.findElement(By.xpath(STATEMENT_ABOUT_YOU_DISAGREE_BTN_XPATH)));
-        }
+    public StatementsAboutYou setSoleStatementToggle(boolean doesAgree) {
+        super.setToggle(doesAgree, STATEMENT_ABOUT_YOU_AGREE_BTN_XPATH, STATEMENT_ABOUT_YOU_DISAGREE_BTN_XPATH);
         return this;
     }
 
-    private String buildXpathForToggle(boolean doesAgree, String partOfVisibleText) {
-        StringBuffer sb = new StringBuffer("//p[contains(text(),'");
-        sb.append(partOfVisibleText);
-        sb.append("')]/../following-sibling::div");
-        String btnText = (doesAgree) ? STATEMENT_ABOUT_YOU_AGREE_BTN_XPATH : STATEMENT_ABOUT_YOU_DISAGREE_BTN_XPATH;
-        sb.append(btnText);
-        return sb.toString();
-    }
-
     public StatementsAboutYou setStatementToggle(boolean doesAgree, String partOfVisibleText) {
-        click(getElementByXPath(buildXpathForToggle(doesAgree, partOfVisibleText)));
+        super.setToggleByLabelText(doesAgree, partOfVisibleText,
+                STATEMENT_ABOUT_YOU_AGREE_BTN_XPATH, STATEMENT_ABOUT_YOU_DISAGREE_BTN_XPATH);
         return this;
     }
 }

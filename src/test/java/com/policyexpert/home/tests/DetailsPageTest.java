@@ -15,7 +15,7 @@ public class DetailsPageTest extends BaseTest {
     @DataProvider(name = "test-inputs")
     public Object[][] getAllTestCases(){
         List<TestData> testDataList = new ArrayList<>();
-        testDataList.add(new TestData("testDataDetailsExpandedFlow.json"));
+//        testDataList.add(new TestData("testDataDetailsExpandedFlow.json"));
         testDataList.add(new TestData("testDataDetailsShortFlow.json"));
         Object[][] result = testDataList.stream().map(x -> new Object[] {x}).toArray(Object[][]::new);
         return result;
@@ -29,7 +29,8 @@ public class DetailsPageTest extends BaseTest {
 
     private Function<TestData, TestData> fillEnquiry() {
         return enquiryDetailsPage.fillAboutYou
-                .andThen(enquiryDetailsPage.fillStatementsAboutYou);
+                .andThen(enquiryDetailsPage.fillStatementsAboutYou)
+                .andThen(enquiryDetailsPage.fillAboutYourProperty);
     }
 
 }
