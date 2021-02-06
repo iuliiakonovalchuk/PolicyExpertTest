@@ -32,5 +32,8 @@
     "whenOccupied": "During the day",
     "areTreesTaller5meters": false,
     "haveFlatRoof": false
+  },
+  "statementsAboutYourProperty":{
+    "doesAgree": true
   }
 }

@@ -1,5 +1,6 @@
 package com.policyexpert.home.pages.enquirydetails;
 
+import com.policyexpert.home.base.BasePage;
 import com.policyexpert.home.pages.enquirydetails.fragments.*;
 import com.policyexpert.home.tests.TestData;
 import com.policyexpert.home.utils.PageStatesBucket;
@@ -12,7 +13,7 @@ import java.util.function.UnaryOperator;
 
 import static org.testng.Assert.assertTrue;
 
-public class EnquiryDetailsPage {
+public class EnquiryDetailsPage extends BasePage {
 
     private AboutYou aboutYou;
     private StatementsAboutYou statementsAboutYou;
@@ -32,16 +33,19 @@ public class EnquiryDetailsPage {
     @FindBy(xpath = "//div[text() = 'About your property']/following-sibling::div")
     private WebElement aboutYourPropertyWidget;
 
+    @FindBy(xpath = "//div[text() = 'Statements about your property']/following-sibling::div")
+    private WebElement statementsAboutYourPropertyWidget;
+
     public EnquiryDetailsPage(RemoteWebDriver driver) {
         PageFactory.initElements(driver, this);
         this.aboutYou = new AboutYou(aboutYouWidget);
         this.statementsAboutYou = new StatementsAboutYou(statementsAboutYouWidget);
         this.aboutYourProperty = new AboutYourProperty(aboutYourPropertyWidget);
-        //this.statementsAboutYourProperty = new StatementsAboutYourProperty(driver);
-        //this.aboutSafetyAndSecurity = new AboutSafetyAndSecurity(driver);
-        //this.aboutTheJointPolicyholders = new AboutTheJointPolicyholders(driver);
-        //this.aboutYourInsuranceHistory = new AboutYourInsuranceHistory(driver);
-        //this.aboutTheCoverYouWant = new AboutTheCoverYouWant(driver);
+        this.statementsAboutYourProperty = new StatementsAboutYourProperty(statementsAboutYourPropertyWidget);
+        //this.aboutSafetyAndSecurity = new AboutSafetyAndSecurity(aboutSafetyAndSecurityWidget);
+        //this.aboutTheJointPolicyholders = new AboutTheJointPolicyholders(aboutTheJointPolicyholdersWidget);
+        //this.aboutYourInsuranceHistory = new AboutYourInsuranceHistory(aboutYourInsuranceHistoryWidget);
+        //this.aboutTheCoverYouWant = new AboutTheCoverYouWant(aboutTheCoverYouWantWidget);
     }
 
     public final UnaryOperator<TestData> fillAboutYou = (d) -> {
@@ -75,6 +79,7 @@ public class EnquiryDetailsPage {
                     .setStatementToggle(d.getExpandedAgreementSelection().isNoCancelledHomeInsurance(), StatementsAboutYou.CANCELLED_HOME_INSURANCE_TEXT)
                     .setStatementToggle(d.getExpandedAgreementSelection().isNoConvictedOffence(), StatementsAboutYou.ANY_OFFENCE_TEXT);
         }
+        PageStatesBucket.isStatementsAboutYouFilled = true;
         return d;
     };
 
@@ -93,6 +98,17 @@ public class EnquiryDetailsPage {
                     .setToggleByLabelText(d.getAboutYourProperty().isAreTreesTaller5meters(), AboutYourProperty.TREES_AROUND_TEXT)
                     .setToggleByLabelText(d.getAboutYourProperty().isHaveFlatRoof(), AboutYourProperty.FLAT_ROOT_TEXT);
         }
+        PageStatesBucket.isAboutYourPropertyFilled = true;
+        return d;
+    };
+
+    public final UnaryOperator<TestData> fillStatementsAboutYourProperty = (d) -> {
+        if (!d.filledStatementsAboutYourProperty()) {
+            assertTrue(statementsAboutYourProperty.isAt());
+            this.statementsAboutYourProperty
+                    .setSoleStatementToggle(d.getStatementsAboutYourProperty().isDoesAgree());
+        }
+        PageStatesBucket.isStatementsAboutYourPropertyFilled = true;
         return d;
     };
 

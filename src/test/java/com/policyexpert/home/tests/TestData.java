@@ -24,6 +24,10 @@ public class TestData {
         return PageStatesBucket.isAboutYourPropertyFilled;
     }
 
+    public boolean filledStatementsAboutYourProperty() {
+        return PageStatesBucket.isStatementsAboutYourPropertyFilled;
+    }
+
     public TestDataDto getTestDataDto() {
         return testDataDto;
     }
@@ -42,6 +46,10 @@ public class TestData {
 
     public AboutYourPropertyDto getAboutYourProperty(){
         return testDataDto.getAboutYourProperty();
+    }
+
+    public StatementsAboutYourPropertyDto getStatementsAboutYourProperty() {
+        return testDataDto.getStatementsAboutYourProperty();
     }
 
 }

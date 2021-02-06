@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Policy Expert - Home">
-    <test name="Login">
+    <test name="Home">
 
         <packages>
             <package name="com.policyExpertHome.pages.*"/>

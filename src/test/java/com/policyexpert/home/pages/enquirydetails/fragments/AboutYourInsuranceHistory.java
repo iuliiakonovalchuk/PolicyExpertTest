@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 public class AboutYourInsuranceHistory extends BaseWidget {
 
-
     public AboutYourInsuranceHistory(WebElement widget) {
         super(widget);
     }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestDataDto {
+
     @JsonProperty("aboutYou")
     AboutYouDto aboutYou;
 
@@ -13,6 +14,9 @@ public class TestDataDto {
 
     @JsonProperty("aboutYourProperty")
     AboutYourPropertyDto aboutYourProperty;
+
+    @JsonProperty("statementsAboutYourProperty")
+    StatementsAboutYourPropertyDto statementsAboutYourProperty;
 
     public AboutYouDto getAboutYou() {
         return aboutYou;
@@ -25,4 +29,9 @@ public class TestDataDto {
     public AboutYourPropertyDto getAboutYourProperty() {
         return aboutYourProperty;
     }
+
+    public StatementsAboutYourPropertyDto getStatementsAboutYourProperty() {
+        return statementsAboutYourProperty;
+    }
+
 }

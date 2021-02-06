@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StatementsAboutYouInnerDto {
+
     @JsonProperty("propertyNotForBusiness")
     boolean propertyNotForBusiness;
 
@@ -46,4 +47,5 @@ public class StatementsAboutYouInnerDto {
     public boolean isNoConvictedOffence() {
         return noConvictedOffence;
     }
+
 }

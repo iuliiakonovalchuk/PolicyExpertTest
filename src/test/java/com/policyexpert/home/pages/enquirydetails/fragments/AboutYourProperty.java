@@ -18,7 +18,6 @@ public class AboutYourProperty extends BaseWidget {
     public static final String OWN_PROPERTY_SELECT_CSS = ".question-row-do-you-own-the-prope select";
     public static final String WHO_PROPERTY_OCCUPIED = ".question-row-who-is-the-property select";
     public static final String WHEN_PROPERTY_OCCUPIED = ".question-row-when-is-the-property select";
-    public static final String PERCENTAGE_ROOF_FLAT = ".question-row-what-percentage-of-y select";
 
     public static final String CORRESPONDENCE_ADDRESS_TEXT = "your correspondence address";
     public static final String TREES_AROUND_TEXT = "Are there trees taller";

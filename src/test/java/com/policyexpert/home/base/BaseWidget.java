@@ -23,7 +23,7 @@ public abstract class BaseWidget {
      * @param by e.g. By.cssSelector
      * @return WebElement if found or null if unable to find element
      */
-    protected WebElement getElementBy(By by) {
+    private WebElement getElementBy(By by) {
         try {
             return widget.findElement(by);
         } catch (NoSuchElementException e) {
@@ -39,15 +39,15 @@ public abstract class BaseWidget {
         }
     }
 
-    protected WebElement getElementByCss(String css) {
+    private WebElement getElementByCss(String css) {
         return getElementBy(By.cssSelector(css));
     }
 
-    protected WebElement getElementByXPath(String xpath) {
+    private WebElement getElementByXPath(String xpath) {
         return getElementBy(By.xpath(xpath));
     }
 
-    protected void selectItemInDropdownByValue(String dropdownIdentifier, String value) {
+    private void selectItemInDropdownByValue(String dropdownIdentifier, String value) {
         selectItemInDropdownByValue(getElementByCss(dropdownIdentifier),value);
     }
 
@@ -56,11 +56,11 @@ public abstract class BaseWidget {
         dropdown.selectByValue(value);
     }
 
-    protected void click(WebElement element) {
+    private void click(WebElement element) {
         element.click();
     }
 
-    protected void sendKeys(WebElement element, String text) {
+    private void sendKeys(WebElement element, String text) {
         element.sendKeys(text);
     }
 
@@ -73,7 +73,7 @@ public abstract class BaseWidget {
         return this;
     }
 
-    public static String buildXpathForToggle(boolean doesAgree, String partOfVisibleText, String yesXPath, String noXPath) {
+    private static String buildXpathForToggle(boolean doesAgree, String partOfVisibleText, String yesXPath, String noXPath) {
         StringBuffer sb = new StringBuffer("//p[contains(text(),'");
         sb.append(partOfVisibleText);
         sb.append("')]/../following-sibling::div");
@@ -91,12 +91,7 @@ public abstract class BaseWidget {
         return this;
     }
 
-    public BaseWidget selectItemInDropdown(WebElement element, String value) {
-        selectItemInDropdownByValue(element, value);
-        return this;
-    }
-
-    public BaseWidget setToggle(boolean isYes, String yesXpath, String noXpath) {
+    protected BaseWidget setToggle(boolean isYes, String yesXpath, String noXpath) {
         if (isYes) {
             click(getElementBy(By.xpath(yesXpath)));
         } else {
@@ -105,7 +100,7 @@ public abstract class BaseWidget {
         return this;
     }
 
-    public BaseWidget setToggleByLabelText(boolean isYes, String partOfVisibleText, String yesBtnXpath, String noBtnXpath) {
+    protected BaseWidget setToggleByLabelText(boolean isYes, String partOfVisibleText, String yesBtnXpath, String noBtnXpath) {
         click(getElementByXPath(buildXpathForToggle(isYes, partOfVisibleText, yesBtnXpath, noBtnXpath)));
         return this;
     }

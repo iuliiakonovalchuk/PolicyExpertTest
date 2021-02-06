@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 public class AboutTheCoverYouWant extends BaseWidget {
 
-
     public AboutTheCoverYouWant(WebElement widget) {
         super(widget);
     }

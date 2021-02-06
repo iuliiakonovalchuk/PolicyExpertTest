@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 public class AboutTheJointPolicyholders extends BaseWidget {
 
-
     public AboutTheJointPolicyholders(WebElement widget) {
         super(widget);
     }

@@ -24,5 +24,8 @@
     "whenOccupied": "occupied_during_day",
     "areTreesTaller5meters": false,
     "haveFlatRoof": false
+  },
+  "statementsAboutYourProperty":{
+    "doesAgree": true
   }
 }
