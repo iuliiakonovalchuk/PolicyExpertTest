@@ -1,0 +1,28 @@
+{
+  "aboutYou":{
+    "title": "mr",
+    "firstName":"test01",
+    "lastName":"test02",
+    "dateOfBirth":"01/01/1990",
+    "maritalStatus":"Married",
+    "occupation": "Quality Engineer",
+    "anybodyLiving": false,
+    "phoneNumber": "0123456789",
+    "email": "vketipisz@qmetric.co.uk"
+  },
+  "statementsAboutYou":{
+    "doesAgree": true
+  },
+  "aboutYourProperty":{
+    "addressOfProperty":"EC2N 4AY, 110 Bishopsgate",
+    "isCorrespondenceAddress": true,
+    "typeOfProperty":"House",
+    "YearOfBuilding":"1970",
+    "countOfBedrooms": 2,
+    "isOwner": true,
+    "whomOccupied": "You and your family",
+    "whenOccupied": "During the day",
+    "areTreesTaller5meters": false,
+    "haveFlatRoof": false
+  }
+}
