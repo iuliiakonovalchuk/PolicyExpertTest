@@ -3,15 +3,23 @@
     "title": "mr",
     "firstName":"test01",
     "lastName":"test02",
-    "dateOfBirth":"01/01/1990",
-    "maritalStatus":"Married",
+    "dateOfBirth":"01/01/1992",
+    "maritalStatus":"married",
     "occupation": "Quality Engineer",
-    "anybodyLiving": false,
+    "anybodyLivingSmoke": false,
     "phoneNumber": "0123456789",
     "email": "vketipisz@qmetric.co.uk"
   },
   "statementsAboutYou":{
-    "doesAgree": true
+    "doesAgree": false,
+    "expandedAgreementSelection": {
+        "propertyNotForBusiness": true,
+        "noBankrupt": false,
+        "noCourtJudgement": true,
+        "noDeclinedHomeInsurance": true,
+        "noCancelledHomeInsurance": false,
+        "noConvictedOffence": true
+    }
   },
   "aboutYourProperty":{
     "addressOfProperty":"EC2N 4AY, 110 Bishopsgate",

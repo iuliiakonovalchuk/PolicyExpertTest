@@ -2,23 +2,33 @@ package com.policyexpert.home.tests;
 
 import com.policyexpert.home.base.BaseTest;
 import com.policyexpert.home.pages.enquirydetails.EnquiryDetailsPage;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.*;
 import java.util.function.Function;
 
 public class DetailsPageTest extends BaseTest {
 
     private EnquiryDetailsPage enquiryDetailsPage;
 
-    @Test
-    public void workFlowTest(){
-        TestData testData = new TestData("testDataDetails.json");
-        this.enquiryDetailsPage = new EnquiryDetailsPage(driver);
-        this.fillAboutYouPositive().apply(testData);
+    @DataProvider(name = "test-inputs")
+    public Object[][] getAllTestCases(){
+        List<TestData> testDataList = new ArrayList<>();
+        testDataList.add(new TestData("testDataDetailsExpandedFlow.json"));
+        testDataList.add(new TestData("testDataDetailsShortFlow.json"));
+        Object[][] result = testDataList.stream().map(x -> new Object[] {x}).toArray(Object[][]::new);
+        return result;
     }
 
-    private Function<TestData, TestData> fillAboutYouPositive() {
+    @Test(dataProvider = "test-inputs")
+    public void fillEnquiryDetailsTestPositive(TestData testData){
+        this.enquiryDetailsPage = new EnquiryDetailsPage(driver);
+        this.fillEnquiry().apply(testData);
+    }
+
+    private Function<TestData, TestData> fillEnquiry() {
         return enquiryDetailsPage.fillAboutYou
-                .andThen(enquiryDetailsPage.fillAboutYou)
                 .andThen(enquiryDetailsPage.fillStatementsAboutYou);
     }
 

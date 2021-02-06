@@ -28,4 +28,8 @@ public class ParseTestData {
         return json.get(node).get(subNode).asText();
     }
 
+    public String getJsonValue(String node, String subNode, String subSubNode) {
+        return json.get(node).get(subNode).get(subSubNode).asText();
+    }
+
 }
