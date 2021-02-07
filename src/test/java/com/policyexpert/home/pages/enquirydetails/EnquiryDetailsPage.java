@@ -2,7 +2,7 @@ package com.policyexpert.home.pages.enquirydetails;
 
 import com.policyexpert.home.base.BasePage;
 import com.policyexpert.home.pages.enquirydetails.fragments.*;
-import com.policyexpert.home.tests.TestData;
+import com.policyexpert.home.utils.TestData;
 import com.policyexpert.home.utils.PageStatesBucket;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;

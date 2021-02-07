@@ -1,8 +1,6 @@
-package com.policyexpert.home.tests;
+package com.policyexpert.home.utils;
 
 import com.policyexpert.home.dto.*;
-import com.policyexpert.home.utils.ParseTestData;
-import com.policyexpert.home.utils.PageStatesBucket;
 
 public class TestData {
 
