@@ -1,4 +1,4 @@
-#PolicyExpect - Automation framework
+# PolicyExpect - Automation framework
 
 ## Quick setup
 - Java 8 ([Install docs](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html))
@@ -24,7 +24,7 @@ The following design patterns used to build it:
 It allows to change only input data with no modification of code.
 It uses Java Functional Interfaces (UnaryOperator and Function).
 - **Page Fragments**. It allows to represent the part of page as fragment (called widget), to store there information separate to widgets. So the class will contains the information of specific section and not the whole page.
-- **Page Object**. Since only one page was tested, it was not fully implemented, but when it is time to proceed to the next page, BasePage class should contains methods to cope with page similarities.
+- **Page Object**. Since only one page was tested, this pattern was not fully implemented. When it is time to proceed to the next page, BasePage class should contain methods to cope with page similarities.
 
 ## Framework structure
 **src** <br />
@@ -45,21 +45,21 @@ Currently, this framework covers only sub-forms of Details page (About you, Stat
 
 Follow the next steps to add the next sub-form "About safety and security":
 - Expand the existing json in the **resource** folder:
-    - in short flow select values to cover the short flow (no expanded questions)
-    - in expanded flow select values so that the most branches are covered
+    - select values to cover the short flow (no expanded questions) in short flow 
+    - select values so that the most branches are covered in expanded flow
  
 - Add representation of new json section as java classes (using Jackson library):
-    - add a new class in dto, describe there all fields
+    - add a new class in **dto**, describe there all fields
     - add references to the new class into TestDataDto
     - in utils/TestData.java add methods to get the value inside the subnode easier (optionally)
  
 - Add page states:
-    - add variables into utils/PageStatesBucket.java
+    - add variables into **utils**/PageStatesBucket.java
     - add variable to save page states in to utils/TestData.java
  
-- Add new class into fragments package
-    - specify there selectors for input and select elements
-    - specify there part of the label text next to toggle (it will be used in xpath builder)
+- Add new class into **fragments** package
+    - specify selectors for input and select elements
+    - specify the part of the label text next to toggle (it will be used in xpath builder)
     - add custom methods if needed
     
 - Add flow to fill all inputs in this section in EnquiryDetailsPage
@@ -67,7 +67,7 @@ Follow the next steps to add the next sub-form "About safety and security":
 
 
 ## Next steps
-So far, not all fields were covered in the Details sections. So that's why no assertions in the text. Once all section filled, it should use TestNG assert function to check the next page opened or in case of negative test, error messages are shown.
+So far, not all fields were covered in the Details sections. So that's why no assertions in the text. Once all section filled, it should use TestNG assert function to check the next page opened or, in case of negative test, error messages are shown.
 
 The next steps to improve the framework may include:
 - Add BDD tests (Gherkin language). Cucumber, Serenity libraries have already been added as a maven dependency.
